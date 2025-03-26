@@ -29,9 +29,15 @@ public class PatientEntity {
 
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PATIENT_ID")
 	private List<AddressEntity> addressEntities;
+
+	@OneToMany(mappedBy = "patient")
+	private List<VisitEntity> visitEntities;
+
+
 
 	public Long getId() {
 		return id;

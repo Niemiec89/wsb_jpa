@@ -17,6 +17,20 @@ public class VisitEntity {
 	@Column(nullable = false)
 	private LocalDateTime time;
 
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn(name="Patient_ID")
+	private PatientEntity patient;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="Doctor_id")
+	private DoctorEntity doctor;
+
+	@OneToOne(cascade =  CascadeType.ALL,
+	fetch = FetchType.LAZY,
+	optional = false)
+	@JoinColumn(name = "Medical Treatment")
+	private MedicalTreatmentEntity medicalTreatment;
+
 	public Long getId() {
 		return id;
 	}

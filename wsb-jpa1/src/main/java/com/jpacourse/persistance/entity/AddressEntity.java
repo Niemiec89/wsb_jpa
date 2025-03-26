@@ -3,6 +3,8 @@ package com.jpacourse.persistance.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "ADDRESS")
 public class AddressEntity {
@@ -21,6 +23,9 @@ public class AddressEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PATIEND_ID")
 	private PatientEntity patientEntity;
+
+	@ManyToMany(mappedBy = "addressEntities")
+	private Collection<DoctorEntity> doctorEntities;
 
 	public Long getId() {
 		return id;
