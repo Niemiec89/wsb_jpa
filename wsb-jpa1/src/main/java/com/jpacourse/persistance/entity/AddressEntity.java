@@ -21,7 +21,7 @@ public class AddressEntity {
 
 	private String postalCode;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PATIEND_ID")
+	@JoinColumn(name = "PATIENT_ID")
 	private PatientEntity patientEntity;
 
 	@ManyToMany(mappedBy = "addressEntities")
