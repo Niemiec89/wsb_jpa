@@ -1,31 +1,38 @@
 package com.jpacourse.persistance.entity;
 
 
-import jakarta.persistence.*;
 
-import java.util.Collection;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "ADDRESS")
+@Table(name = "address")
 public class AddressEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(nullable = false)
 	private String city;
 
+	@Column(nullable = false)
 	private String addressLine1;
 
+	@Column(nullable = true)
 	private String addressLine2;
 
+	@Column(nullable = false)
 	private String postalCode;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PATIEND_ID")
-	private PatientEntity patientEntity;
 
-	@ManyToMany(mappedBy = "addressEntities")
-	private Collection<DoctorEntity> doctorEntities;
+	public AddressEntity() {
+	}
+
+	public AddressEntity(String city, String addressLine1, String addressLine2, String postalCode) {
+		this.city = city;
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.postalCode = postalCode;
+	}
 
 	public Long getId() {
 		return id;
@@ -66,5 +73,4 @@ public class AddressEntity {
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
-
 }

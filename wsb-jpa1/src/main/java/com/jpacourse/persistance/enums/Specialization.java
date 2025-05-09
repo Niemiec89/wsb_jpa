@@ -2,9 +2,12 @@ package com.jpacourse.persistance.enums;
 
 public enum Specialization {
 
-	SURGEON,
-	GP,
-	DERMATOLOGIST,
-	OCULIST
+	Chirurgia,
+	Ortopedia,
+	Neurologia,
+	Dermatologia,
+	Pediatria,
+	Kardiologia,
+	Stomatologia
 
 }

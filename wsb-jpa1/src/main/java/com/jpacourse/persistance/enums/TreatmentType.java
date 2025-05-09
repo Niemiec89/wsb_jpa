@@ -4,5 +4,7 @@ public enum TreatmentType {
 
 	USG,
 	EKG,
-	RTG
+	RTG,
+	CONTROL,
+	MRI
 }

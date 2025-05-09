@@ -2,8 +2,9 @@ package com.jpacourse.dto;
 
 import java.io.Serializable;
 
-public class AddressTO implements Serializable
-{
+public class AddressTO implements Serializable {
+
+
     private Long id;
 
     private String city;
@@ -27,7 +28,7 @@ public class AddressTO implements Serializable
     }
 
     public void setCity(String city) {
-        this.city = city;
+        this.city = city.trim();
     }
 
     public String getAddressLine1() {
@@ -43,14 +44,17 @@ public class AddressTO implements Serializable
     }
 
     public void setAddressLine2(String addressLine2) {
-        this.addressLine2 = addressLine2;
+        this.addressLine2 = (addressLine2 != null) ? addressLine2 : "";
     }
 
     public String getPostalCode() {
         return postalCode;
     }
-
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+
+
     }
+
+
 }

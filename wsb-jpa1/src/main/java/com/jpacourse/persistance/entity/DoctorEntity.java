@@ -2,14 +2,12 @@ package com.jpacourse.persistance.entity;
 
 import com.jpacourse.persistance.enums.Specialization;
 
-import jakarta.persistence.*;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "DOCTOR")
+@Table(name = "doctor")
 public class DoctorEntity {
 
 	@Id
@@ -25,6 +23,7 @@ public class DoctorEntity {
 	@Column(nullable = false)
 	private String telephoneNumber;
 
+	@Column(nullable = false)
 	private String email;
 
 	@Column(nullable = false)
@@ -34,16 +33,25 @@ public class DoctorEntity {
 	@Enumerated(EnumType.STRING)
 	private Specialization specialization;
 
-	@OneToMany(mappedBy = "doctor")
-	private List<VisitEntity> visitEntities;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "address_id")
+	private AddressEntity address;
 
-	@ManyToMany
-	@JoinTable(
-			name = "Doctor to address",
-			joinColumns = @JoinColumn(name = "Doctor_ID"),
-			inverseJoinColumns = @JoinColumn(name = "Address_ID")
-	)
-	private Collection<AddressEntity> addressEntities;
+	@OneToMany(mappedBy = "doctor", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+	private Set<VisitEntity> visits = new HashSet<>();
+
+	public DoctorEntity() {
+	}
+
+	public DoctorEntity(String firstName, String lastName, String telephoneNumber, String email, String doctorNumber, Specialization specialization, AddressEntity address) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.telephoneNumber = telephoneNumber;
+		this.email = email;
+		this.doctorNumber = doctorNumber;
+		this.specialization = specialization;
+		this.address = address;
+	}
 
 	public Long getId() {
 		return id;
@@ -101,4 +109,29 @@ public class DoctorEntity {
 		this.specialization = specialization;
 	}
 
+	public AddressEntity getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressEntity address) {
+		this.address = address;
+	}
+
+	public Set<VisitEntity> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(Set<VisitEntity> visits) {
+		this.visits = visits;
+	}
+
+	public void addVisit(VisitEntity visit) {
+		visits.add(visit);
+		visit.setDoctor(this);
+	}
+
+	public void removeVisit(VisitEntity visit) {
+		visits.remove(visit);
+		visit.setDoctor(null);
+	}
 }
